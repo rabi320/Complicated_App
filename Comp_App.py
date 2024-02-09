@@ -1,4 +1,7 @@
 import streamlit as st
+import pandas as pd
+import numpy as np
+
 
 def main_page():
     st.markdown("# Main page 🎈")
@@ -7,6 +10,8 @@ def main_page():
 def page2():
     st.markdown("# Page 2 ❄️")
     st.sidebar.markdown("# Page 2 ❄️")
+    df = pd.DataFrame({'A':np.arange(5),'B':np.array([100,200,500,200,300])})
+    st.DataFrame(df)
 
 def page3():
     st.markdown("# Page 3 🎉")
