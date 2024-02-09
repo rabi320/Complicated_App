@@ -11,7 +11,7 @@ def page2():
     st.markdown("# Page 2 ❄️")
     st.sidebar.markdown("# Page 2 ❄️")
     df = pd.DataFrame({'A':np.arange(5),'B':np.array([100,200,500,200,300])})
-    st.dataFrame(df)
+    st.dataframe(df)
 
 def page3():
     st.markdown("# Page 3 🎉")
