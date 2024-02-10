@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import time
+from datetime import datetime, timedelta
+import random
 
 @st.cache_data
 
@@ -58,8 +60,9 @@ def page4():
     # Show a spinner during a process
     with st.spinner(text='Planning Inventory...'):
        time.sleep(3)
-       st.success('Done')
     
+    st.balloons()
+
     class Program:
         progress: int = 0
 
@@ -74,12 +77,44 @@ def page4():
 
     while p.progress < 100:
         p.increment()
-        my_bar.progress(p.progress, text=f"Progress: {p.progress}%")
-    
-    st.balloons()
-
-    with st.button('Get Invontory Plan:')
+        my_bar.progress(p.progress, text=f"Loading: {p.progress}%")
         
+    st.snow()
+
+    # Define product names
+    products = ['Lotus', 'Oreo', 'H&S']
+
+    # Generate random future purchase dates
+    def generate_purchase_date():
+        today = datetime.today()
+        future_date = today + timedelta(days=random.randint(3, 7))
+        return future_date
+
+    # Define store IDs
+    store_ids = ['Store1', 'Store2', 'Store3']
+
+    # Define inventory management type
+    inventory_management_types = ['FIFO', 'LIFO', 'FEFO']
+
+    # Define safety stock in days
+    safety_stocks = [5, 7, 3]
+
+    # Create DataFrame
+    data = {'Store_ID': [], 'Product': [], 'Date': [], 'Inventory_Management': [], 'Safety_Stock(days)': []}
+    for store_id in store_ids:
+        for product in products:
+            purchase_date = generate_purchase_date()
+            inventory_management = random.choice(inventory_management_types)
+            safety_stock = random.choice(safety_stocks)
+            data['Store_ID'].append(store_id)
+            data['Product'].append(product)
+            data['Date'].append(purchase_date)
+            data['Inventory_Management'].append(inventory_management)
+            data['Safety_Stock(days)'].append(safety_stock)
+
+    df = pd.DataFrame(data)
+
+    st.dataframe(df)
 
 page_names_to_funcs = {
     "Rooster Homepage": main_page,
